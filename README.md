@@ -7,6 +7,7 @@ Please code a solution in the language, and on the platform, of your choice. The
 The attached file consists of rows of comma separated numbers which will be your input.
 
 e.g.
+
 2323,8349348,121,33
 
 948,4,312623
@@ -18,9 +19,11 @@ Each line may have a longer or shorter list of numbers with a maximum of 1000 pe
 The output of your code should be the same number of rows as the input with 5 columns each and show the original row number with some aggregated data: the count of numbers in the row, the average for that row, the max number, the min number.
 
 i.e.
-<row>,<count>,<avg>,<max>,<min>
+
+&lt;row&gt;,&lt;count&gt;,&lt;avg&gt;,&lt;max&gt;,&lt;min&gt;
 
 e.g. (using the 2 lines above)
+
 1,4,2087956.25,8349348,33
 
 2,3,104525,312623,4
