@@ -8,7 +8,9 @@ The attached file consists of rows of comma separated numbers which will be your
 
 e.g.
 2323,8349348,121,33
+
 948,4,312623
+
 ...
 
 Each line may have a longer or shorter list of numbers with a maximum of 1000 per row. Each number is between zero and 1 million.
@@ -20,7 +22,9 @@ i.e.
 
 e.g. (using the 2 lines above)
 1,4,2087956.25,8349348,33
+
 2,3,104525,312623,4
+
 ...
 
 Finally the output order does not need to be the same as the input row order. Precision only to 2 decimal places.
