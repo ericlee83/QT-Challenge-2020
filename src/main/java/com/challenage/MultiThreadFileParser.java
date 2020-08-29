@@ -1,6 +1,8 @@
 package com.challenage;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 public class MultiThreadFileParser {
@@ -22,8 +24,9 @@ public class MultiThreadFileParser {
         writer.print("");
         writer.close();
 
-        ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
-        CompletionService<Long> completionService = new ExecutorCompletionService<>(ex);
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
+        CompletionService<Long> completionService = new ExecutorCompletionService<>(executorService);
+        List<Future<Long>> futures = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_PATH));
              BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(OUTPUT_PATH, true))) {
             String line;
@@ -31,16 +34,16 @@ public class MultiThreadFileParser {
             while ((line = bufferedReader.readLine()) != null) {
                 final String _line = line;
                 final int _index = index;
-                completionService.submit(() -> {
+                futures.add(completionService.submit(() -> {
                     long start = System.currentTimeMillis();
                     String result = String.format("%d,%s%s", _index, ParserUtil.parseLine(_line), System.lineSeparator());
                     bufferedWriter.write(result);
                     return System.currentTimeMillis() - start;
-                });
+                }));
                 index++;
             }
-            TimeUnit.MILLISECONDS.sleep(5);
+            executorService.shutdown();
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         }
-        ex.shutdown();
     }
 }
