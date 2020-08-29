@@ -13,6 +13,7 @@ public class MultiThreadFileParser {
     }
 
     private void run() throws IOException, InterruptedException {
+        long startMain = System.currentTimeMillis();
         File output = new File(OUTPUT_PATH);
         if (!output.exists()) {
             output.createNewFile();
@@ -41,6 +42,7 @@ public class MultiThreadFileParser {
             }
             executorService.shutdown();
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            System.out.printf("Time: %dms\n",System.currentTimeMillis() - startMain);
         }
     }
 }
